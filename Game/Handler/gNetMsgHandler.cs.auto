@@ -1,0 +1,18 @@
+//Auto generated, do not modify unless you know clearly what you are doing.
+using System;
+using gNet;
+
+public static partial class gNetMsgHandler
+{
+        public static void Handle_LoginAck(gNetMsg msg) {
+            LoginAck ack = gPB.pbDecode<LoginAck> (msg.content);
+            //TODO
+        }
+
+        public static void Handle_LogoutAck(gNetMsg msg) {
+            LogoutAck ack = gPB.pbDecode<LogoutAck> (msg.content);
+            //TODO
+        }
+
+    }
+}
