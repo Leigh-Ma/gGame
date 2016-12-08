@@ -46,6 +46,7 @@ using System;
 
 namespace ${PACKAGE}{
     public enum gNetMsgType{
+        MT_HeatBeat          =    123456,
         MT_Blank             =    0,
 EOF
 

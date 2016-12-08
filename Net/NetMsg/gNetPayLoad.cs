@@ -62,6 +62,32 @@ namespace gNet
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"HeadBeat")]
+  public partial class HeadBeat : global::ProtoBuf.IExtensible
+  {
+    public HeadBeat() {}
+    
+    private int _time_stamp = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"time_stamp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int time_stamp
+    {
+      get { return _time_stamp; }
+      set { _time_stamp = value; }
+    }
+    private int _code = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"code", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int code
+    {
+      get { return _code; }
+      set { _code = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginReq")]
   public partial class LoginReq : global::ProtoBuf.IExtensible
   {
@@ -82,6 +108,14 @@ namespace gNet
     {
       get { return _uuid; }
       set { _uuid = value; }
+    }
+    private string _server_id = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"server_id", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string server_id
+    {
+      get { return _server_id; }
+      set { _server_id = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

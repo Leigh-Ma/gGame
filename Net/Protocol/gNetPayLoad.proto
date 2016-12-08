@@ -10,9 +10,15 @@ message BlankMsg{
     bool helper = 1;
 }
 
+message HeadBeat {
+    int32 time_stamp = 1;
+    int32 code = 2;
+}
+
 message LoginReq{
 	string user_id = 1;
 	string uuid = 2;
+	string server_id = 3;
 }
 
 message LoginAck{
