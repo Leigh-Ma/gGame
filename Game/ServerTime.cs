@@ -10,11 +10,20 @@ public class Dispatcher : gMsgDispatch{}
 public class ServerTime : MonoBehaviour {
 	public Text svrTime;
 	public string serverId;
+
 	int frame = 0;
+
 
 	void Start () {
 
 		svrTime = GameObject.Find ("Canvas/Text").GetComponent<Text> ();
+
+		LoginReq req = new LoginReq ();
+		req.user_id  = "0x" + System.Convert.ToString (gGlobal.MyPlayerId, 16);
+		req.uuid     = "uuidxxxxxxxxxxxxxxxxx";
+		req.server_id= serverId;
+		Debug.Log (req.user_id + req.uuid + req.server_id);
+		Dispatcher.SendNetMsg (gNetMsgType.MT_LoginReq, req);
 
 	}
 
@@ -30,6 +39,7 @@ public class ServerTime : MonoBehaviour {
 		frame += 1;
 	}
 
+
 	void test_login() {
 		LoginReq req = new LoginReq ();
 		req.user_id = "0x" + System.Convert.ToString (gGlobal.MyPlayerId, 16);
@@ -39,4 +49,5 @@ public class ServerTime : MonoBehaviour {
 		Dispatcher.SendNetMsg (gNetMsgType.MT_LoginReq, req);
 	}
 		
+
 }
