@@ -50,6 +50,7 @@ namespace gNet{
 				type = msgType,
 				content = gPB.pbEncode (data),
 			};
+			msg.size = msg.content.Length;
 
 			lock (sendQueue) {
 				sendQueue.Enqueue (msg);
@@ -185,7 +186,7 @@ namespace gNet{
 
 				if (sendQueue.Count > 0) {
 					try {
-						sendMessage (sendQueue.Dequeue ());
+						sendMessageNoPlayerId (sendQueue.Dequeue ());
 					} catch (Exception ) {
 						clientSocket.Disconnect (true);
 						clientSocket.Shutdown (SocketShutdown.Both);
@@ -198,7 +199,22 @@ namespace gNet{
 			}
 		}
 
+		void sendMessageNoPlayerId(gNetMsg msg) {
+			int totalSize = msg.size + gNetMsgHead.HEAD_BYTES;
+			int sendSize  = 0;
 
+			byte[] data = new byte[totalSize];
+
+			Array.Copy(gNetMsgHead.EncodeHead(msg), 0, data, 0, gNetMsgHead.HEAD_BYTES);
+
+			Array.Copy (msg.content, 0, data, gNetMsgHead.HEAD_BYTES, msg.size);
+
+			while (sendSize < totalSize) {
+				sendSize += clientSocket.Send (data, sendSize, totalSize - sendSize, SocketFlags.None);
+			}
+		}
+
+        //NOT USED ACCORDING TO PROTOCOL
 	    void sendMessage(gNetMsg msg) {
 			int totalSize = msg.size + gNetMsgHead.HEAD_BYTES + PAYER_ID_BYTES;
 			int sendSize  = 0;

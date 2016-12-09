@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class gGlobal
 {	
-	public static string ServerAddress  = "192.168.1.103";
+	public static string ServerAddress  = "192.168.1.105";
 	public static int ServerPort        = 7788;
 
 	public static int MaxReConnectTimes = 5;
@@ -18,3 +18,4 @@ public class gGlobal
 		Debug.Log ("gGlobal set ServerTime = " + ServerTime.ToString ());
 	}
 }
+

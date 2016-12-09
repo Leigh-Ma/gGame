@@ -9,16 +9,13 @@ public class Dispatcher : gMsgDispatch{}
 
 public class ServerTime : MonoBehaviour {
 	public Text svrTime;
+	public string serverId;
+	int frame = 0;
 
 	void Start () {
 
 		svrTime = GameObject.Find ("Canvas/Text").GetComponent<Text> ();
 
-		LoginReq req = new LoginReq ();
-		req.user_id = gGlobal.MyPlayerId.ToString ();
-		req.uuid = "xxxxxxxxxxxxxxxxxuuid";
-
-		Dispatcher.SendNetMsg (gNetMsgType.MT_LoginReq, req);
 	}
 
 	void Update() {
@@ -27,24 +24,19 @@ public class ServerTime : MonoBehaviour {
 		} else {
 			Debug.Log ("can not find server time text to set");
 		}
+		if (0 == frame % 50) {
+			test_login ();
+		}
+		frame += 1;
 	}
 
-	void test() {
+	void test_login() {
 		LoginReq req = new LoginReq ();
-		req.user_id = gGlobal.MyPlayerId.ToString ();
-		req.uuid = "xxxxxxxxxxxxxxxxxuuid";
-		Debug.Log ("test: origin LoginReq:{user_id:" + req.user_id + ", uuid: " + req.uuid + "}");
-
-		byte[] data;
-
-		using(MemoryStream m = new MemoryStream()) {
-			ProtoBuf.Serializer.Serialize <LoginReq>(m, req);
-			data = m.ToArray ();
-		}
-		Debug.Log ("test: proto serialized data len: %" + data.Length.ToString());
-		using(MemoryStream m = new MemoryStream(data)) {
-			LoginReq rr = ProtoBuf.Serializer.Deserialize<LoginReq> (m);
-			Debug.Log ("test: restore LoginReq:{user_id:" + rr.user_id + ", uuid: " + rr.uuid + "}");
-		}
+		req.user_id = "0x" + System.Convert.ToString (gGlobal.MyPlayerId, 16);
+		req.uuid = "uuidxxxxxxxxxxxxxxxxx";
+		req.server_id = serverId;
+		Debug.Log (req.user_id + req.uuid + req.server_id);
+		Dispatcher.SendNetMsg (gNetMsgType.MT_LoginReq, req);
 	}
+		
 }
